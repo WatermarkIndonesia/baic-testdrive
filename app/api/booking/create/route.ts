@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       status: "confirmed",
     })
 
-    sendWhatsApp(wa, templateKonfirmasi({
+    await sendWhatsApp(wa, templateKonfirmasi({
       nama: nama.trim(),
       model_nama: car.nama,
       tanggal: formatTanggal(tanggal),
@@ -149,7 +149,7 @@ export async function POST(req: NextRequest) {
       throw insertError
     }
 
-    sendWhatsApp(wa, templateKonfirmasi({
+    await sendWhatsApp(wa, templateKonfirmasi({
       nama: nama.trim(),
       model_nama: car.nama,
       tanggal: formatTanggal(tanggal),
