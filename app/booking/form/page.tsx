@@ -110,6 +110,7 @@ function FormContent() {
     <main className="min-h-screen bg-[#0A0A0F] pb-32">
       {/* Header */}
       <header className="flex items-center gap-4 px-6 py-4 border-b border-[#1E1E2E] bg-[#0A0A0F]">
+        <div className="w-full max-w-2xl mx-auto flex items-center gap-4">
         <button
           onClick={() => {
             if (step === "slot") setStep("date")
@@ -128,43 +129,46 @@ function FormContent() {
           </h1>
           <p className="text-[#8888AA] text-xs">{car.nama} · {car.variant}</p>
         </div>
+        </div>
       </header>
 
       {/* Progress */}
       <div className="px-6 pt-5 pb-4">
-        <div className="flex items-center gap-2">
-          {[...progressSteps].map((label, i) => (
-            <div key={label} className="flex items-center gap-2 flex-1">
-              <div className={`flex items-center gap-1.5 ${i <= stepIndex ? "text-[#4F8EF7]" : "text-[#8888AA]"}`}>
-                <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 ${
-                  i < stepIndex ? "bg-[#4F8EF7] text-white" :
-                  i === stepIndex ? "bg-[#4F8EF7] text-white" :
-                  "bg-[#1E1E2E] text-[#8888AA]"
-                }`}>
-                  {i < stepIndex ? (
-                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-                      <path d="M1.5 4l1.5 1.5 3.5-3.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  ) : i + 2}
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center gap-2">
+            {[...progressSteps].map((label, i) => (
+              <div key={label} className="flex items-center gap-2 flex-1">
+                <div className={`flex items-center gap-1.5 ${i <= stepIndex ? "text-[#4F8EF7]" : "text-[#8888AA]"}`}>
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 ${
+                    i < stepIndex ? "bg-[#4F8EF7] text-white" :
+                    i === stepIndex ? "bg-[#4F8EF7] text-white" :
+                    "bg-[#1E1E2E] text-[#8888AA]"
+                  }`}>
+                    {i < stepIndex ? (
+                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                        <path d="M1.5 4l1.5 1.5 3.5-3.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    ) : i + 2}
+                  </div>
+                  <span className="text-[11px] font-medium hidden sm:block">{label}</span>
                 </div>
-                <span className="text-[11px] font-medium hidden sm:block">{label}</span>
+                {i < 2 && <div className={`flex-1 h-px ${i < stepIndex ? "bg-[#4F8EF7]" : "bg-[#1E1E2E]"}`} />}
               </div>
-              {i < 2 && <div className={`flex-1 h-px ${i < stepIndex ? "bg-[#4F8EF7]" : "bg-[#1E1E2E]"}`} />}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Error banner */}
       {error && (
-        <div className="mx-6 mb-4 p-3 bg-[#EF4444]/10 border border-[#EF4444]/30 rounded-xl text-[#EF4444] text-sm">
+        <div className="mx-6 mb-4 max-w-2xl mx-auto p-3 bg-[#EF4444]/10 border border-[#EF4444]/30 rounded-xl text-[#EF4444] text-sm">
           {error}
         </div>
       )}
 
       {/* Step: Date */}
       {step === "date" && (
-        <div className="px-6">
+        <div className="px-6 max-w-2xl mx-auto">
           <p className="text-[#8888AA] text-xs mb-4">Select your visit date at GIIAS 2026</p>
           <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
             {GIIAS_DATES.map((date) => {
@@ -196,7 +200,7 @@ function FormContent() {
 
       {/* Step: Slot */}
       {step === "slot" && (
-        <div className="px-6">
+        <div className="px-6 max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-1">
             <p className="text-[#8888AA] text-xs">Select an available time slot</p>
             <button onClick={() => setStep("date")} className="text-[#4F8EF7] text-xs underline">
@@ -248,7 +252,7 @@ function FormContent() {
 
       {/* Step: Form */}
       {step === "form" && (
-        <div className="px-6 space-y-4">
+        <div className="px-6 space-y-4 max-w-2xl mx-auto">
           {/* Summary pill */}
           <div className="bg-[#12121A] border border-[#1E1E2E] rounded-2xl p-4 flex items-center gap-3">
             <div className="relative w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 bg-[#0A0A0F]">

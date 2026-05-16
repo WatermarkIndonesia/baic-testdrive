@@ -1,17 +1,39 @@
+"use client"
+
+import { useState } from "react"
 import NavLink from "../nav-link"
 import LogoutButton from "../logout-button"
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
   return (
     <div className="flex min-h-screen bg-[#0A0A0F]">
-      <aside className="fixed left-0 top-0 h-full w-[220px] flex flex-col border-r border-[#1E1E2E] bg-[#0A0A0F] z-10">
-        <div className="px-5 py-6 border-b border-[#1E1E2E]">
-          <div className="text-white font-bold text-lg tracking-wider">BAIC</div>
-          <div className="text-[#9CA3AF] text-xs mt-0.5">Admin Dashboard</div>
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 z-20 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`fixed left-0 top-0 h-full w-[220px] flex flex-col border-r border-[#1E1E2E] bg-[#0D0D14] z-30 transition-transform duration-200
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+      >
+        <div className="px-5 py-5 border-b border-[#1E1E2E] flex items-center justify-between">
+          <div>
+            <div className="text-white font-bold text-lg tracking-wider">BAIC</div>
+            <div className="text-[#9CA3AF] text-xs mt-0.5">Admin Dashboard</div>
+          </div>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="lg:hidden text-[#9CA3AF] hover:text-white p-1"
+          >
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M3 3l12 12M15 3L3 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </button>
         </div>
 
         <nav className="flex-1 px-3 py-4 space-y-1">
@@ -40,9 +62,26 @@ export default function AdminLayout({
         </div>
       </aside>
 
-      <main className="flex-1 ml-[220px] overflow-y-auto p-6 min-h-screen">
-        {children}
-      </main>
+      {/* Main content */}
+      <div className="flex-1 flex flex-col min-h-screen lg:ml-[220px]">
+        {/* Top bar (mobile only) */}
+        <header className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-[#1E1E2E] bg-[#0D0D14] sticky top-0 z-10">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="text-[#9CA3AF] hover:text-white p-1"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </button>
+          <div className="text-white font-bold text-base tracking-wider">BAIC</div>
+          <div className="text-[#9CA3AF] text-xs">Admin Dashboard</div>
+        </header>
+
+        <main className="flex-1 p-4 lg:p-6 overflow-y-auto">
+          {children}
+        </main>
+      </div>
     </div>
   )
 }
